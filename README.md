@@ -11,9 +11,6 @@ This platform features a dual-role system (Student & Recruiter), advanced Regex-
 
 ---
 
-## 🔗 Live Demo
-**[Insert Deployment Link Here]**
-
 ## 📸 Screenshots
 
 ### 🏠 Home Page
