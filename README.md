@@ -15,7 +15,21 @@ This platform features a dual-role system (Student & Recruiter), advanced Regex-
 **[Insert Deployment Link Here]**
 
 ## 📸 Screenshots
-*(Insert 2-3 screenshots of the Home page, the Job listing page, and the Admin dashboard here)*
+
+### 🏠 Home Page
+![Home Page](screenshots/home_page.png)
+
+### 📂 Browse Categories
+![Browse Categories](screenshots/browse_category.png)
+
+### 🔍 Job Search & Filters
+![Job Search & Filters](screenshots/jobs_page.png)
+
+### 🔐 Sign In
+![Sign In](screenshots/login_page.png)
+
+### 📝 Sign Up
+![Sign Up](screenshots/signup_page.png)
 
 ---
 
