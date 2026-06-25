@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { Briefcase, ArrowLeft } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -8,7 +8,7 @@ const PostJobPage = () => {
     const navigate = useNavigate();
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(false);
-    
+
     // Form State
     const [input, setInput] = useState({
         title: "",
@@ -26,10 +26,8 @@ const PostJobPage = () => {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/v1/company/get', {
-                    withCredentials: true
-                });
-                if(res.data.success){
+                const res = await api.get('/company/get');
+                if (res.data.success) {
                     setCompanies(res.data.companies);
                 }
             } catch (error) {
@@ -48,11 +46,10 @@ const PostJobPage = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:5000/api/v1/job/post', input, {
+            const res = await api.post('/job/post', input, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                withCredentials: true
+                }
             });
             if (res.data.success) {
                 toast.success(res.data.message);
@@ -68,7 +65,7 @@ const PostJobPage = () => {
 
     return (
         <div className="max-w-4xl mx-auto px-4 pt-24 pb-12 relative z-10">
-            <button 
+            <button
                 onClick={() => navigate('/admin/companies')}
                 className="flex items-center gap-2 text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white mb-6 transition-colors"
             >
@@ -87,7 +84,7 @@ const PostJobPage = () => {
                 </div>
 
                 <form onSubmit={submitHandler} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
+
                     {/* Title */}
                     <div className="col-span-1 md:col-span-2">
                         <label className="block text-gray-600 dark:text-slate-300 text-sm font-bold mb-2 uppercase tracking-wider">Job Title</label>
@@ -163,15 +160,14 @@ const PostJobPage = () => {
                                 You must register a company first from the dashboard.
                             </p>
                         ) : null}
-                        
-                        <button 
-                            type="submit" 
+
+                        <button
+                            type="submit"
                             disabled={loading || companies.length === 0}
-                            className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${
-                                loading || companies.length === 0 
-                                ? 'bg-gray-300 dark:bg-slate-700/50 text-gray-500 dark:text-slate-500 border border-gray-400 dark:border-slate-600/50 cursor-not-allowed' 
-                                : 'bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white shadow-md dark:shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]'
-                            }`}
+                            className={`w-full py-4 rounded-xl font-bold text-lg transition-all ${loading || companies.length === 0
+                                    ? 'bg-gray-300 dark:bg-slate-700/50 text-gray-500 dark:text-slate-500 border border-gray-400 dark:border-slate-600/50 cursor-not-allowed'
+                                    : 'bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 text-white shadow-md dark:shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]'
+                                }`}
                         >
                             {loading ? "Processing..." : "Submit Job Listing"}
                         </button>

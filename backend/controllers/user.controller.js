@@ -91,7 +91,12 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     try {
         // Clearing the cookie logs the user out
-        return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+        return res.status(200).cookie("token", "", { 
+            maxAge: 0,
+            httpOnly: true,
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+            secure: process.env.NODE_ENV === 'production'
+        }).json({
             success: true,
             message: "Logged out successfully."
         });
@@ -104,7 +109,7 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        
+
         const userId = req.id; // from isAuthenticated middleware
         let user = await User.findById(userId);
 
@@ -116,7 +121,7 @@ export const updateProfile = async (req, res) => {
         if (fullname) user.fullname = fullname;
         if (email) user.email = email;
         if (phoneNumber) user.phoneNumber = phoneNumber;
-        
+
         // Handle skills (split by comma if provided)
         if (skills !== undefined) {
             const skillsArray = skills.split(",").map(skill => skill.trim()).filter(Boolean);

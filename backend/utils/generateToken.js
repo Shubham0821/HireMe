@@ -16,7 +16,8 @@ export const generateToken = (res, user) => {
     res.cookie('token', token, {
         maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in milliseconds
         httpOnly: true, // Prevents Javascript (Hackers) from reading it
-        sameSite: 'strict'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        secure: process.env.NODE_ENV === 'production'
     });
 
     return token;
