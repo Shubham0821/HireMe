@@ -4,7 +4,7 @@ import axios from 'axios';
 // This saves us from typing the full URL 100 times!
 // We use VITE_API_URL from .env if available (for production), else fallback to localhost.
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
+    baseURL: import.meta.env.VITE_API_URL || 'https://hireme-backend-kd4s.onrender.com/api/v1',
     withCredentials: true, // IMPORTANT: This tells Axios to ALWAYS attach the HTTP-Only cookie token to every request!
 });
 
