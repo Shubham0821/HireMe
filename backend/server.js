@@ -29,9 +29,8 @@ app.use(cookieParser());
 const corsOptions = {
     origin: [
         process.env.FRONTEND_URL,
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'http://localhost:5175'
+        'https://hireme-frontend-o3jr.onrender.com', // Deployed frontend
+        'http://localhost:5173' // Local frontend (do not remove this)
     ].filter(Boolean),
     credentials: true, // Allow passing tokens/cookies back and forth
 };
