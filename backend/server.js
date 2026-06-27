@@ -18,15 +18,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+// Trust proxy is needed if you are hosting on Render/Heroku/Vercel etc. to allow secure cookies
+app.set("trust proxy", 1);
+
 // 1. express.json() allows us to read JSON data from the frontend
-app.use(express.json()); 
+app.use(express.json());
 // 2. cookieParser() allows us to read secure cookies (for JWT Auth later)
 app.use(cookieParser());
 // 3. cors() allows our frontend (which runs on a different port) to talk to the backend
 const corsOptions = {
     origin: [
-        process.env.FRONTEND_URL, 
-        'http://localhost:5173', 
+        process.env.FRONTEND_URL,
+        'http://localhost:5173',
         'http://localhost:5174',
         'http://localhost:5175'
     ].filter(Boolean),
